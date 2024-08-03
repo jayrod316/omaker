@@ -1,20 +1,32 @@
 import tkinter as tk
 from tkinter import filedialog
-import os
 import tkinter.ttk as ttk
 import script
 
 
+class Foo:
+    def __init__(self):
+        self.input = None
+        self.output = None
+
+
+foo = Foo()
+
+
 def input_dialog():
     input_dir = filedialog.askdirectory()
+    foo.input = input_dir
+    print(input_dir)
 
 
 def output_dialog():
     output_dir = filedialog.askdirectory()
+    foo.output = output_dir
+    print(output_dir)
 
 
 def submit():
-    pass
+    script.main(foo.input, foo.output)
 
 
 root = tk.Tk()
@@ -36,6 +48,7 @@ output_label.grid(column=0, row=1)
 
 output_entry = ttk.Entry(width=25)
 output_entry.grid(column=1, row=1)
+
 
 out_button = ttk.Button(text="Browse", command=output_dialog)
 out_button.grid(column=2, row=1)
