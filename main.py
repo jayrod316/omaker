@@ -2,23 +2,23 @@ import tkinter as tk
 from tkinter import filedialog
 import tkinter.ttk as ttk
 import script
-input_dir = ""
-output_dir = ""
 
 
 def input_dialog():
-    global input_dir
     input_dir = filedialog.askdirectory()
-    input_entry.insert("end", input_dir)
+    input_entry.delete(0, "end")
+    input_entry.insert(0, input_dir)
 
 
 def output_dialog():
-    global output_dir
     output_dir = filedialog.askdirectory()
-    output_entry.insert("end", output_dir)
+    output_entry.delete(0, "end")
+    output_entry.insert(0, output_dir)
 
 
 def submit():
+    input_dir = input_entry.get()
+    output_dir = output_entry.get()
     script.main(input_dir, output_dir)
 
 
