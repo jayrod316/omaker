@@ -15,7 +15,16 @@ def main(input_dir, output_dir):
                 if program.startswith("O"):
                     program_name = re.match(r'O\d+\((.*)\)', program)[1]
                     program_name = filter_chars(program_name)
-                    with open(f"{output_dir}/{new_folder}/{program_name}", "w") as new_program:
+                    try:
+                        # Searches program for (= and stores the text after = as customer name excluding )
+                        customer_name = re.search(
+                            r"\(=(.*)\)", program).group(1)
+                    except AttributeError:
+                        # If no (=CUSTOMER) is found, customer is set to "no_customer"
+                        customer_name = "no_customer"
+                    os.makedirs(
+                        f"{output_dir}/{new_folder}/{customer_name}", exist_ok=True)
+                    with open(f"{output_dir}/{new_folder}/{customer_name}/{program_name}", "w") as new_program:
                         new_program.write(program)
                 if program.startswith("<"):
                     program_name = re.match(r"<(.*)>", program).group(1)
